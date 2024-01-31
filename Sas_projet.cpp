@@ -63,6 +63,37 @@ void displayNotes(const struct Note *notes, int count) {
         printf("--------------------------------------------------------------------------------------------------------\n");
     }
 }
+// Function to edit a note
+void editNote(struct Note *notes, int count) {
+    int id;
+    printf("Enter the ID of the note you want to edit: ");
+    scanf("%d", &id);
+
+    // Search for the note with the specified ID
+    int index = -1;
+    for (int i = 0; i < count; i++) {
+        if (notes[i].id == id) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index != -1) {
+        // Edit the note
+        printf("Enter new Note Title: ");
+        scanf(" %[^\n]s", notes[index].title);
+
+        printf("Enter new Note Description: ");
+        scanf(" %[^\n]s", notes[index].description);
+
+        printf("Enter new Deadline Time: ");
+        scanf(" %[^\n]s", notes[index].deadline);
+
+        printf("Note edited successfully!\n");
+    } else {
+        printf("Note not found!\n");
+    }
+}
 
 
 int main() {
@@ -75,7 +106,8 @@ int main() {
         printf("\nMenu:\n");
         printf("1. Add a Note\n");
         printf("2. Display Notes\n");
-        printf("3. EXIT\n");
+        printf("3. Edit a Note\n");
+        printf("4. EXIT\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -87,13 +119,16 @@ int main() {
                 displayNotes(notes, noteCount);
                 break;
                 case 3:
+                editNote(notes, noteCount);
+                break;
+                case 4:
                 printf("Exiting program.\n");
                 break;
                 
             default:
                 printf("Invalid choice. Please enter a valid option.\n");
         }
-    } while (choice != 3);
+    } while (choice != 4);
 
     return 0;
 }

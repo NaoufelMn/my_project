@@ -3,6 +3,7 @@
 // Define the structure for a note
 struct Note {
     int id;
+    char priority;
     char title[50];
     char description[200];
     char deadline[20];
@@ -29,6 +30,8 @@ void addNote(struct Note *notes, int *count) {
 
         printf("Enter Note Description: ");
         scanf(" %[^\n]s", newNote.description);
+        printf("Enter Priority (Low: L, Medium: M, High: H): ");
+        scanf(" %c", &newNote.priority);
 
         // Get and validate Deadline Time
         do {
@@ -55,17 +58,18 @@ void displayNotes(const struct Note *notes, int count) {
     if (count == 0) {
         printf("No notes available.\n");
     } else {
-        printf("\nID\tTitle\t\tDescription\t\tDeadline \n");
+        printf("\nID\tTitle\t\t\tDescription\t\t\t\tDeadline\t\tPriority \n");
         printf("-------------------------------------------------------------------------------------------------------\n");
         for (int i = 0; i < count; i++) {
-            printf("%d\t%s\t\t%s\t\t%s\t\n  ", notes[i].id, notes[i].title, notes[i].description, notes[i].deadline);
+            printf("%d\t %s\t\t %s\t \t\t%s\t \t\t%c\n  ", notes[i].id, notes[i].title, notes[i].description, notes[i].deadline,notes[i].priority);
         }
-        printf("--------------------------------------------------------------------------------------------------------\n");
+        printf("-------------------------------------------------------------------------------------------------------\n");
     }
 }
 // Function to edit a note
 void editNote(struct Note *notes, int count) {
     int id;
+     struct Note newNote;
     printf("Enter the ID of the note you want to edit: ");
     scanf("%d", &id);
 
@@ -88,7 +92,8 @@ void editNote(struct Note *notes, int count) {
 
         printf("Enter new Deadline Time: ");
         scanf(" %[^\n]s", notes[index].deadline);
-
+printf("Enter Priority (Low: L, Medium: M, High: H): ");
+        scanf(" %c", &newNote.priority);
         printf("Note edited successfully!\n");
     } else {
         printf("Note not found!\n");

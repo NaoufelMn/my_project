@@ -94,6 +94,35 @@ void editNote(struct Note *notes, int count) {
         printf("Note not found!\n");
     }
 }
+// Function to remove a note
+void removeNote(struct Note *notes, int *count) {
+    int id;
+    printf("Enter the ID of the note you want to remove: ");
+    scanf("%d", &id);
+
+    // Search for the note with the specified ID
+    int index = -1;
+    for (int i = 0; i < *count; i++) {
+        if (notes[i].id == id) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index != -1) {
+        // Remove the note by shifting elements
+        for (int i = index; i < *count - 1; i++) {
+            notes[i] = notes[i + 1];
+        }
+
+        // Decrement the count
+        (*count)--;
+
+        printf("Note removed successfully!\n");
+    } else {
+        printf("Note not found!\n");
+    }
+}
 
 
 int main() {
@@ -107,7 +136,8 @@ int main() {
         printf("1. Add a Note\n");
         printf("2. Display Notes\n");
         printf("3. Edit a Note\n");
-        printf("4. EXIT\n");
+        printf("4. Remove a Note\n");
+        printf("5. EXIT\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -122,13 +152,16 @@ int main() {
                 editNote(notes, noteCount);
                 break;
                 case 4:
+                removeNote(notes, &noteCount);
+                break;
+                case 5:
                 printf("Exiting program.\n");
                 break;
                 
             default:
                 printf("Invalid choice. Please enter a valid option.\n");
         }
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }

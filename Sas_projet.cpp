@@ -30,9 +30,7 @@ void addNote(struct Note *notes, int *count) {
         printf("Enter Note Description: ");
         scanf(" %[^\n]s", newNote.description);
 
-        printf("Enter Deadline Time: ");
-        scanf(" %[^\n]s", newNote.deadline);
-          // Get and validate Deadline Time
+        // Get and validate Deadline Time
         do {
             printf("Enter Deadline Time (YYYY-MM-DD): ");
             scanf(" %[^\n]s", newNote.deadline);
@@ -52,6 +50,20 @@ void addNote(struct Note *notes, int *count) {
         printf("Maximum number of notes reached!\n");
     }
 }
+// Function to display all notes
+void displayNotes(const struct Note *notes, int count) {
+    if (count == 0) {
+        printf("No notes available.\n");
+    } else {
+        printf("\nID\tTitle\t\tDescription\t\tDeadline \n");
+        printf("-------------------------------------------------------------------------------------------------------\n");
+        for (int i = 0; i < count; i++) {
+            printf("%d\t%s\t\t%s\t\t%s\t\n  ", notes[i].id, notes[i].title, notes[i].description, notes[i].deadline);
+        }
+        printf("--------------------------------------------------------------------------------------------------------\n");
+    }
+}
+
 
 int main() {
     struct Note notes[100];  // Assuming a maximum of 100 notes for simplicity
@@ -62,7 +74,8 @@ int main() {
         // Display menu
         printf("\nMenu:\n");
         printf("1. Add a Note\n");
-        printf("2. EXIT\n");
+        printf("2. Display Notes\n");
+        printf("3. EXIT\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -71,12 +84,16 @@ int main() {
                 addNote(notes, &noteCount);
                 break;
                 case 2:
+                displayNotes(notes, noteCount);
+                break;
+                case 3:
                 printf("Exiting program.\n");
                 break;
+                
             default:
                 printf("Invalid choice. Please enter a valid option.\n");
         }
-    } while (choice != 2);
+    } while (choice != 3);
 
     return 0;
 }
